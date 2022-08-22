@@ -1,12 +1,14 @@
 import { useState } from "react";
 import "./App.css";
+import emojiCollection from "./emojis";
+import emoji from "./emoji";
 
 const App = () => {
   return (
     <div className="container">
       <div className="chatBox">
         <div className="chatWindow" id="chatWindowMain">
-          newMessage
+          <emoji emojiCall={emojiCollection} />
         </div>
         <form className="chatFrame" id="chatFrame">
           <input type="text" id="msgInput" value="" />
