@@ -1,14 +1,14 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 import emojiCollection from "./emojis";
-import emoji from "./emoji";
+import Emoji from "./emoji";
 
 const App = () => {
   return (
     <div className="container">
       <div className="chatBox">
         <div className="chatWindow" id="chatWindowMain">
-          <emoji emojiCall={emojiCollection} />
+          <Emoji src={emojiCollection["Kappa"]} />
         </div>
         <form className="chatFrame" id="chatFrame">
           <input type="text" id="msgInput" value="" />
@@ -35,6 +35,17 @@ const newMessage = ({ Author, Message }: ServerMessageType) => {
       </span>
     </span>
   );
+};
+
+const webSocket = new WebSocket(
+  "wss://niezniszczalny-chinczyk.com/twitch-chat"
+);
+const WebSocketSource = () => {
+  useEffect(() => {
+    webSocket.onmessage = (serverEvent) => newMessage(serverEvent);
+
+    const serverMsgData = JSON.parse(serverEvent.data);
+  }, []);
 };
 
 export default App;

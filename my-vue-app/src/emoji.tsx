@@ -1,5 +1,9 @@
-const emoji = ({ emojiCall }: { emojiCall: string }) => {
-  return <img src={`/${emojiCall}`} />;
+import emojiCollection from "./emojis";
+const Emoji = ({ emojiName }: string) => {
+  if (emojiCollection.emojiName) {
+  }
+
+  return <img src={emojiCollection.emojiName} alt="emojiNotFound" />;
 };
 
-export default emoji;
+export default Emoji;
