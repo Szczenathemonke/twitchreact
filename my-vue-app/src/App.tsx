@@ -37,8 +37,9 @@ type ServerMessageType = {
 // };
 
 const WebSocketSource = ({ serverMessage }) => {
+  const [serverEvent, setServerEvent] = useState("");
+
   useEffect(() => {
-    const [serverEvent, setServerEvent] = useState("");
     const webSocket = new WebSocket(
       "wss://niezniszczalny-chinczyk.com/twitch-chat"
     );
