@@ -1,9 +1,15 @@
-import emojiCollection from "./emojis";
-const Emoji = ({ emojiName }: string) => {
-  if (emojiCollection.emojiName) {
-  }
+import EMOJI_COLLECTION from "./emojis";
 
-  return <img src={emojiCollection.emojiName} alt="emojiNotFound" />;
+type EmojiPropTypes = {
+  emojiCall: typeof EMOJI_COLLECTION;
+};
+
+const Emoji = ({ emojiCall }: EmojiPropTypes) => {
+  return (
+    <span>
+      <img src={emojiCall.KEKW} alt="emojiNotFound" />
+    </span>
+  );
 };
 
 export default Emoji;
