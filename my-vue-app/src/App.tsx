@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import "./App.css";
 import EMOJI_COLLECTION from "./emojis";
 import Emoji from "./emoji";
+import WebSocketSource from "./socket";
 
 const App = () => {
   return (
@@ -9,6 +10,7 @@ const App = () => {
       <div className="chatBox">
         <div className="chatWindow" id="chatWindowMain">
           <Emoji emojiCall={EMOJI_COLLECTION} />
+          <WebSocketSource />
         </div>
         <form className="chatFrame" id="chatFrame">
           <input type="text" id="msgInput" value="" />
@@ -16,51 +18,6 @@ const App = () => {
         </form>
       </div>
     </div>
-  );
-};
-
-type ServerMessageType = {
-  serverMessage: object;
-};
-
-// const newMessage = ({ serverMessage }: ServerMessageType) => {
-//   return (
-//     <span>
-//       <span className="Author" key={serverMessage.author}>
-//       {serverMessage.author}
-//       </span>
-//       <span className="Message" key={serverMessage.message}>
-//       {serverMessage.message}
-//       </span>
-//     </span>
-//   );
-// };
-
-const WebSocketSource = ({ serverMessage }) => {
-  const [serverEvent, setServerEvent] = useState("");
-
-  useEffect(() => {
-    const webSocket = new WebSocket(
-      "wss://niezniszczalny-chinczyk.com/twitch-chat"
-    );
-    webSocket.onmessage = (serverEvent) =>
-      setServerEvent(JSON.parse(serverEvent.data));
-    // const serverMessage = JSON.parse(serverEvent.data: Object);
-
-    return () => {
-      webSocket.close();
-    };
-  }, []);
-
-  return (
-    <span>
-      <span className="Author" key={serverMessage.author}>
-        {serverMessage.author}
-      </span>
-      <span className="Message" key={serverMessage.message}>
-        {serverMessage.message}
-      </span>
-    </span>
   );
 };
 

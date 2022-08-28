@@ -1,15 +1,28 @@
 import EMOJI_COLLECTION from "./emojis";
 
-type EmojiPropTypes = {
-  emojiCall: typeof EMOJI_COLLECTION;
+type EmojiProps = {
+  emojiCall: string;
 };
-
-const Emoji = ({ emojiCall }: EmojiPropTypes) => {
+const Emoji = ({ emojiCall }: EmojiProps) => {
   return (
     <span>
-      <img src={emojiCall.KEKW} alt="emojiNotFound" />
+      <img src={EMOJI_COLLECTION[emojiCall]} alt="emojiNotFound" />
     </span>
   );
 };
 
 export default Emoji;
+
+// type EmojiPropTypes = {
+//   emojiCall: typeof EMOJI_COLLECTION;
+// };
+
+// const Emoji = ({ emojiCall }: EmojiPropTypes) => {
+//   return (
+//     <span>
+//       <img src={emojiCall.KEKW} alt="emojiNotFound" />
+//     </span>
+//   );
+// };
+
+// export default Emoji;
