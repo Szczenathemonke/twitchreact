@@ -1,7 +1,4 @@
-// import { useState, useEffect } from "react";
 import "./App.css";
-import EMOJI_COLLECTION from "./emojis";
-import Emoji from "./emoji";
 import WebSocketSource from "./socket";
 
 const App = () => {
@@ -9,7 +6,6 @@ const App = () => {
     <div className="container">
       <div className="chatBox">
         <div className="chatWindow" id="chatWindowMain">
-          <Emoji emojiCall={EMOJI_COLLECTION} />
           <WebSocketSource />
         </div>
         <form className="chatFrame" id="chatFrame">
