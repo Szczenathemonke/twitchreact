@@ -45,17 +45,18 @@ const Author = ({ authorProps }: { authorProps: string }) => {
   const [userColorCounter, setUserColorCounter] = useState<number>(0);
   //const [userColorStyle, setColorStyle] = useState<string>(` var(--userColor${userColorCounter})`)
 
-  useEffect(() => {
-    if (!userColors.hasOwnProperty(authorProps)) {
-      setUserColors((oldstate) => {
-        return {
-          ...oldstate,
-          authorProps: ` var(--userColor${userColorCounter})`,
-        };
-      });
-      setUserColorCounter((old) => old + 1);
-    }
-  }, [authorProps, userColorCounter, userColors]);
+  // useEffect(() => {
+  //   if (!userColors.hasOwnProperty(authorProps)) {
+  //     setUserColors((oldstate) => {
+  //       return {
+  //         ...oldstate,
+  //         [authorProps]: ` var(--userColor${userColorCounter})`,
+  //       };
+  //     });
+  //     setUserColorCounter((old) => old + 1);
+  //   }
+  // }, [authorProps, userColorCounter, userColors]);
+
   // if (!userColors.hasOwnProperty(authorProps)) {
 
   //   setUserColors((oldstate) => {
@@ -81,7 +82,7 @@ const Author = ({ authorProps }: { authorProps: string }) => {
   if (userColorCounter > 5) {
     setUserColorCounter(0);
   }
-  console.log(userColors);
+  //console.log(userColors);
   return <span style={{ color: userColors.authorProps }}>{authorProps}</span>;
 };
 
