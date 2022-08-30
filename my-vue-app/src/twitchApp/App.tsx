@@ -1,17 +1,15 @@
-import "./App.css";
+import "../App.css";
 import WebSocketSource from "./socket";
+import SendMsg from "./userInput";
 
 const App = () => {
   return (
     <div className="container">
       <div className="chatBox">
         <div className="chatWindow" id="chatWindowMain">
-          <WebSocketSource />
+          {/* <WebSocketSource /> */}
         </div>
-        <form className="chatFrame" id="chatFrame">
-          <input type="text" id="msgInput" value="" />
-          <button type="submit">SEND</button>
-        </form>
+        <SendMsg />
       </div>
     </div>
   );
