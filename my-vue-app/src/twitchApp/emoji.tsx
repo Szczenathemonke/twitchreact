@@ -4,9 +4,13 @@ type EmojiProps = {
   emojiCall: string;
 };
 const Emoji = ({ emojiCall }: EmojiProps) => {
+  const emoji = EMOJI_COLLECTION.get(emojiCall);
+  if (emoji === undefined) {
+    return null;
+  }
   return (
     <span>
-      <img src={EMOJI_COLLECTION[emojiCall]} alt="emojiNotFound" />
+      <img src={emoji} alt="emojiNotFound" />
     </span>
   );
 };

@@ -8,9 +8,9 @@ type NewPostProps = {
 const NewPost = ({ content }: NewPostProps) => {
   return (
     <>
-      {content.map(({ author, message, color }) => {
+      {content.map(({ author, message, color, id }) => {
         return (
-          <div className="newMsg">
+          <div className="newMsg" key={id}>
             <Author authorProps={author} authorColor={color} />
             <Message msgToSplit={message} />
           </div>
@@ -26,12 +26,12 @@ const Message = ({ msgToSplit }: { msgToSplit: string }) => {
 
   return (
     <>
-      {msgToBeSplitted.map((part) => {
-        if (EMOJI_COLLECTION.hasOwnProperty(part)) {
-          return <Emoji emojiCall={part} />;
+      {msgToBeSplitted.map((part, index) => {
+        if (EMOJI_COLLECTION.has(part)) {
+          return <Emoji emojiCall={part} key={index} />;
           //return <Emoji emojiCall={EMOJI_COLLECTION} />;
         } else {
-          return <span>{part}</span>;
+          return <span key={index}>{part}</span>;
         }
       })}
     </>

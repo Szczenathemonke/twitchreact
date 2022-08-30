@@ -1,17 +1,19 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import NewPost from "./newPost";
 
 export type ServerMsg = {
   author: string;
   message: string;
-  color: string | void;
+  color: string;
+  id: number;
 };
 
 const WebSocketSource = () => {
   const [serverMessageContainer, setContaninerContent] = useState<ServerMsg[]>(
     []
   );
-  const [userColors, setUserColors] = useState<string[]>([]);
+  const userColors = useRef<string[]>([]);
+  const msgId = useRef(1);
 
   useEffect(() => {
     const webSocket = new WebSocket(
@@ -20,21 +22,15 @@ const WebSocketSource = () => {
     webSocket.onmessage = (serverEvent) => {
       const serverMessage = JSON.parse(serverEvent.data);
 
-      if (!userColors.some((e) => e === serverMessage.author)) {
-        setUserColors((oldstate) => {
-          return [...oldstate, serverMessage.author];
-        });
+      if (!userColors.current.some((e) => e === serverMessage.author)) {
+        userColors.current.push(serverMessage.author);
       }
 
-      if (userColors.indexOf(serverMessage.author) < 6) {
-        serverMessage.color = ` var(--userColor${userColors.indexOf(
-          serverMessage.author
-        )})`;
-      } else {
-        serverMessage.color = ` var(--userColor${
-          userColors.indexOf(serverMessage.author) % 6
-        })`;
-      }
+      serverMessage.color = ` var(--userColor${
+        userColors.current.indexOf(serverMessage.author) % 6
+      })`;
+      serverMessage.id = msgId.current;
+      msgId.current += 1;
       setContaninerContent((serverMessageContainer) => [
         ...serverMessageContainer,
         serverMessage,
@@ -44,7 +40,7 @@ const WebSocketSource = () => {
     return () => {
       webSocket.close();
     };
-  }, [serverMessageContainer, userColors]);
+  }, []);
 
   if (serverMessageContainer.length > 50) {
     serverMessageContainer.splice(0, 2);
