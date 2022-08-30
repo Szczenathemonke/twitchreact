@@ -7,7 +7,7 @@ const App = () => {
     <div className="container">
       <div className="chatBox">
         <div className="chatWindow" id="chatWindowMain">
-          {/* <WebSocketSource /> */}
+          <WebSocketSource />
         </div>
         <SendMsg />
       </div>

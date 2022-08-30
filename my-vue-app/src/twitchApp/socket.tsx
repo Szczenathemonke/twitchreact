@@ -11,7 +11,6 @@ const WebSocketSource = () => {
   const [serverMessageContainer, setContaninerContent] = useState<ServerMsg[]>(
     []
   );
-
   const [userColors, setUserColors] = useState<string[]>([]);
 
   useEffect(() => {
@@ -46,8 +45,9 @@ const WebSocketSource = () => {
       webSocket.close();
     };
   }, [serverMessageContainer, userColors]);
+
   if (serverMessageContainer.length > 50) {
-    serverMessageContainer.splice(0, 20);
+    serverMessageContainer.splice(0, 2);
   }
   return <NewPost content={serverMessageContainer} />;
 };

@@ -1,9 +1,10 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 // import { ServerMsg } from "./socket";
 
 const SendMsg = () => {
   const [userInput, setUserInput] = useState("");
   const [newMsgToBeSend, setMsgToBeSend] = useState("");
+  const wsRef = useRef<any | null>(null);
 
   //   const newUserMsg: object = {
   //     author: "szczenathemonke",
@@ -27,28 +28,27 @@ const SendMsg = () => {
 
   useEffect(() => {
     const ws = new WebSocket("wss://niezniszczalny-chinczyk.com/twitch-chat");
+
     const newUserMsg: object = {
       author: "szczenathemonke",
       message: `${newMsgToBeSend}`,
     };
-    // if (webSocket.readyState === WebSocket.OPEN) {
-    //   webSocket.onopen((event) => {
-    //     webSocket.send(JSON.stringify(newUserMsg));
+    // if (ws.readyState === WebSocket.OPEN) {
+    //   ws.onopen((event) => {
+    //     ws.send(JSON.stringify(newUserMsg));
     //   });
     // }
-    //webSocket.readyState === WebSocket.OPEN
 
-    if (ws.readyState === 1) {
-      return ws.send(JSON.stringify(newUserMsg));
-      // ws.close()
-    }
+    // if (ws.readyState === 1) {
+    //    ws.send(JSON.stringify(newUserMsg));
+    // }
+    wsRef.current = ws;
 
-    console.log(newMsgToBeSend);
+    ws.onopen = () => {
+      ws.send(JSON.stringify(newUserMsg));
+    };
+
     return () => {
-      //   if (ws.readyState === 1) {
-      //     ws.send(JSON.stringify(newUserMsg));
-      //     console.log("test");
-      //   }
       ws.close();
     };
   }, [newMsgToBeSend]);

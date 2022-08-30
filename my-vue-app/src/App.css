@@ -57,6 +57,7 @@ body {
   height: 100%;
   gap: 5px;
   overflow-x: auto;
+  scroll-behavior: smooth;
 }
 form {
   width: 100%;
